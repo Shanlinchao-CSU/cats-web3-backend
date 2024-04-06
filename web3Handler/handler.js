@@ -40,3 +40,55 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     return code;
 }
 
+module.exports.mintCarbonCoin = async function (publicKey, amount) {
+    let code = 0;
+    try {
+        // 获取 Gas 价格
+        // const gasPrice = await web3.eth.getGasPrice();
+        const gasPrice = 20000000000; // 20 Gwei
+
+        // 构造交易对象
+        const txObject = {
+            from: accounts[0], // 系统
+            gasPrice: gasPrice,
+            gas: 210000, // 设置 Gas 限制
+        };
+
+        // 调用智能合约方法发送碳币
+       await carbonCoin.methods
+       .transferFrom(accounts[0], publicKey, web3.utils.toWei(amount,"ether"))
+       .send(txObject);
+
+    } catch (error) {
+        code = 1;
+        console.error('Error mint carbon coin:', error);
+    }
+    return code;
+}
+
+module.exports.resetCarbonAllowance = async function (publicKey, amount) {
+    let code = 0;
+    try {
+        // 获取 Gas 价格
+        // const gasPrice = await web3.eth.getGasPrice();
+        const gasPrice = 20000000000; // 20 Gwei
+
+        // 构造交易对象
+        const txObject = {
+            from: accounts[0], // 系统
+            gasPrice: gasPrice,
+            gas: 210000, // 设置 Gas 限制
+        };
+
+        // 调用智能合约方法重置碳排放额度
+       await carbonCredits.methods
+       .resetAllowance(publicKey, amount)
+       .send(txObject);
+
+    } catch (error) {
+        code = 1;
+        console.error('Error reset carbon allowance:', error);
+    }
+    return code;
+}
+
