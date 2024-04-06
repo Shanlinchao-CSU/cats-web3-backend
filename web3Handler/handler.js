@@ -10,14 +10,15 @@ const accounts = ["0xc387a9155b36850cded153182e37f86dbf6064e3", // 0 管理员
 
 const web3 = new Web3(providerUrl);
 
-const carbonCoinContractAddress = '0x5Cd0C2F8f49722a952589e164F5dfAec172Ea762'; // CarbonCoin 智能合约地址
-const carbonCreditsContractAddress = '0x893C5df07B54e3be0454B8f5fBf5CfeE02f73bD4'; // CarbonCredits 智能合约地址
+const carbonCoinContractAddress = '0x6D78638F149c584E44f5E58E7f76c74772aF6AE7'; // CarbonCoin 智能合约地址
+const carbonCreditsContractAddress = '0x46226E90D5fCffebDa2387c5aA7c228B535EF94F'; // CarbonCredits 智能合约地址
 
 const carbonCoin = new web3.eth.Contract(CarbonCoinABI, carbonCoinContractAddress);
 const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContractAddress);
 
 module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     let code = 0;
+    console.log(report,amount,publicKey)
     try {
         // 获取 Gas 价格
         // const gasPrice = await web3.eth.getGasPrice();
@@ -28,11 +29,12 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
             from: accounts[1], // 数据审核员
             gasPrice: gasPrice,
             gas: 210000, // 设置 Gas 限制
+            password: "123456mm"
         };
 
         // 调用智能合约方法提交碳报告
-       await carbonCredits.methods.submitCarbonReport(publicKey, amount, report).send(txObject);
-
+       let result = await carbonCredits.methods.submitCarbonReport(publicKey, amount, report).send(txObject);
+        console.log(result)
     } catch (error) {
         code = 1;
         console.error('Error submitting carbon report:', error);
