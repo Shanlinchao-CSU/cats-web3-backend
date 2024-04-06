@@ -8,8 +8,8 @@ exports.login = (req, res) => {
 // 提交碳报告
 exports.submitCarbonReport = (req, res) => {
     // 获取请求参数
-    let { report } = req.query;
-    handler.submitCarbonReport(report).then(r => {
+    let { report, amount, publicKey } = req.query;
+    handler.submitCarbonReport(report, amount, publicKey).then(r => {
         res.send(r)
     })
 }

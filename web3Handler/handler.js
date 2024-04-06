@@ -14,7 +14,7 @@ const carbonCreditsContractAddress = '0x893C5df07B54e3be0454B8f5fBf5CfeE02f73bD4
 const carbonCoin = new web3.eth.Contract(CarbonCoinABI, carbonCoinContractAddress);
 const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContractAddress);
 
-module.exports.submitCarbonReport = async function (report) {
+module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     let code = 0;
     try {
         // 获取 Gas 价格
@@ -28,7 +28,7 @@ module.exports.submitCarbonReport = async function (report) {
         };
 
         // 调用智能合约方法提交碳报告
-       await carbonCredits.methods.submitCarbonReport(account, 500, report).send(txObject);
+       await carbonCredits.methods.submitCarbonReport(publicKey, amount, report).send(txObject);
 
     } catch (error) {
         code = 1;
