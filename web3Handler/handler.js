@@ -4,7 +4,9 @@ const { abi: CarbonCoinABI } = require('../contracts/CarbonCoin.json');
 const { abi: CarbonCreditsABI } = require('../contracts/CarbonCredits.json');
 
 const providerUrl = 'http://120.78.1.201:8545'; // 以太坊节点的地址
-const account = '0x8b751a0226707ef8df389078b288d13a415343b7'; // 以太坊账户地址
+const accounts = ["0xc387a9155b36850cded153182e37f86dbf6064e3", // 0 管理员
+    "0x8b751a0226707ef8df389078b288d13a415343b7", // 1 数据审核员
+    "0x2f875a7c2069a7b389c24e6227755cde6494e56d"] // 2 第三方机构
 
 const web3 = new Web3(providerUrl);
 
@@ -23,7 +25,7 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
 
         // 构造交易对象
         const txObject = {
-            from: account,
+            from: accounts[1], // 数据审核员
             gasPrice: gasPrice,
             gas: 210000, // 设置 Gas 限制
         };
