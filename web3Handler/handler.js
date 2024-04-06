@@ -27,7 +27,7 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
         const txObject = {
             from: accounts[1], // 数据审核员
             gasPrice: gasPrice,
-            gas: 21000, // 设置 Gas 限制
+            gas: 210000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法提交碳报告
@@ -51,7 +51,7 @@ module.exports.mintCarbonCoin = async function (publicKey, amount) {
         const txObject = {
             from: accounts[0], // 系统
             gasPrice: gasPrice,
-            gas: 21000, // 设置 Gas 限制
+            gas: 210000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法发送碳币
@@ -77,7 +77,7 @@ module.exports.resetCarbonAllowance = async function (publicKey, amount) {
         const txObject = {
             from: accounts[0], // 系统
             gasPrice: gasPrice,
-            gas: 21000, // 设置 Gas 限制
+            gas: 210000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法重置碳排放额度
