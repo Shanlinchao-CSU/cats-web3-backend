@@ -18,13 +18,14 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     let code = 0;
     try {
         // 获取 Gas 价格
-        const gasPrice = await web3.eth.getGasPrice();
+        // const gasPrice = await web3.eth.getGasPrice();
+        const gasPrice = 20000000000; // 20 Gwei
 
         // 构造交易对象
         const txObject = {
             from: account,
             gasPrice: gasPrice,
-            gas: 100, // 设置 Gas 限制
+            gas: 210000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法提交碳报告

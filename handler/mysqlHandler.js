@@ -1,2 +1,2 @@
-import {mysql} from "../config/mysqlConfig";
+const { mysql } = require('../config/mysqlConfig');
 

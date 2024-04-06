@@ -10,6 +10,6 @@ exports.submitCarbonReport = (req, res) => {
     // 获取请求参数
     let { report, amount, publicKey } = req.query;
     handler.submitCarbonReport(report, amount, publicKey).then(r => {
-        res.send(r)
+        res.send(r === 0 ? '提交成功' : '提交失败');
     })
 }
