@@ -7,5 +7,9 @@ const Handler = require('../handler/handler')
 router.get('/login', Handler.login)
 // 处理提交碳报告请求的映射关系
 router.post('/submitCarbonReport', Handler.submitCarbonReport)
+// 处理发放碳币请求的映射关系
+router.post('/mintCarbonCoin', Handler.mintCarbonCoin)
+// 处理重置碳币额度请求的映射关系
+router.post('/resetCarbonAllowance', Handler.resetCarbonAllowance)
 
 module.exports = router
