@@ -1,5 +1,6 @@
 // 登录请求的处理函数
 const handler = require("../web3Handler/handler");
+const {updateCMessage} = require("./mysqlHandler");
 exports.login = (req, res) => {
     res.send('login OK')
 }
@@ -8,9 +9,14 @@ exports.login = (req, res) => {
 // 提交碳报告
 exports.submitCarbonReport = (req, res) => {
     // 获取请求参数
-    let { report, amount, publicKey } = req.query;
+    let { report, amount, publicKey, account_id } = req.query;
     handler.submitCarbonReport(report, amount, publicKey).then(r => {
-        res.send(r === 0 ? '提交成功' : '提交失败');
+        if(updateCMessage(account_id, amount)){
+            res.send(r === 0 ? '提交成功' : '提交失败');
+        }else {
+            res.send(r === 0 ? '提交成功,额度更新失败' : '提交失败')
+        }
+
     })
 }
 
