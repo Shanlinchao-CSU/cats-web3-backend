@@ -38,9 +38,5 @@ exports.updateCMessage = (account_id, amount) => {
         })
     })
 
-    if (flag) {
-        return true
-    }else {
-        return false
-    }
+    return flag;
 }
