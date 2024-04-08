@@ -3,6 +3,7 @@ const {Decimal} = require('../utils/decimal')
 
 /**
  * 报告上链后新增一条记录
+ * 中间计算使用 Decimal.js和toFixed 来保证15位精度
  *
  * @param account_id
  * @param amount
