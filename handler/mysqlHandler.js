@@ -37,6 +37,31 @@ exports.updateCMessage = (account_id, amount) => {
             }
         })
     })
-
     return flag;
 }
+
+/**
+ * 获取密钥
+ *
+ * @param account_id
+ * @return {string} 密钥
+ */
+exports.getPrivateKey = async (account_id) => {
+    return new Promise((resolve, reject) => {
+        let selectSql = `SELECT secret_key
+                         FROM cnts.account
+                         WHERE account_id = ?`;
+        let selectParams = [account_id];
+
+        mysql.query(selectSql, selectParams, (err, result) => {
+            if (err) {
+                console.log('[SELECT ERROR] - ', err.message);
+                reject(err);
+                return;
+            }
+            let privateKey = result[0].secret_key;
+
+            resolve(privateKey);
+        });
+    });
+};

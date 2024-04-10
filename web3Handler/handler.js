@@ -18,7 +18,6 @@ const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContr
 
 module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     let code = 0;
-    console.log(report,amount,publicKey)
     try {
         // 获取 Gas 价格
         // const gasPrice = await web3.eth.getGasPrice();
@@ -31,10 +30,8 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
             gas: 210000, // 设置 Gas 限制
             password: "123456mm"
         };
-
         // 调用智能合约方法提交碳报告
        let result = await carbonCredits.methods.submitCarbonReport(publicKey, amount, report).send(txObject);
-        console.log(result)
     } catch (error) {
         code = 1;
         console.error('Error submitting carbon report:', error);
