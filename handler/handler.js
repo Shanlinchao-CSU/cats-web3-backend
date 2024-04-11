@@ -49,6 +49,24 @@ exports.resetCarbonAllowance = (req, res) => {
     })
 }
 
+// 注册时给用户发放碳币和碳额度
+exports.register = (req, res) => {
+    // 获取请求参数
+    let { publicKey, coin, amount } = req.query;
+    Promise.all([
+        handler.mintCarbonCoin(publicKey, coin),
+        handler.resetCarbonAllowance(publicKey, amount)
+    ])
+        .then(results => {
+            const coinResult = results[0] === 0 ? '碳币发放成功' : '碳币发放失败';
+            const allowanceResult = results[1] === 0 ? '额度发放成功' : '额度发放失败';
+            res.send(`${coinResult}，${allowanceResult}`);
+        })
+        .catch(error => {
+            res.status(500).send('处理请求时发生错误');
+        });
+}
+
 process.on('uncaughtException', (error) => {
     // 处理未捕获的异常
     console.error('An uncaught exception occurred:', error);

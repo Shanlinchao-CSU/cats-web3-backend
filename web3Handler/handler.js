@@ -16,6 +16,14 @@ const carbonCreditsContractAddress = '0x46226E90D5fCffebDa2387c5aA7c228B535EF94F
 const carbonCoin = new web3.eth.Contract(CarbonCoinABI, carbonCoinContractAddress);
 const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContractAddress);
 
+/**
+ * 提交碳报告
+ *
+ * @param report    碳报告
+ * @param amount    碳排放量
+ * @param publicKey 公钥
+ * @return {Promise<number>}    0: 成功 1: 失败
+ */
 module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     let code = 0;
     try {
@@ -39,6 +47,13 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     return code;
 }
 
+/**
+ * 发放碳币
+ *
+ * @param publicKey 公钥
+ * @param amount    数量
+ * @return {Promise<number>}   0: 成功 1: 失败
+ */
 module.exports.mintCarbonCoin = async function (publicKey, amount) {
     let code = 0;
     try {
@@ -65,6 +80,13 @@ module.exports.mintCarbonCoin = async function (publicKey, amount) {
     return code;
 }
 
+/**
+ * 重置碳排放额度
+ *
+ * @param publicKey 公钥
+ * @param amount    数量
+ * @return {Promise<number>}    0: 成功 1: 失败
+ */
 module.exports.resetCarbonAllowance = async function (publicKey, amount) {
     let code = 0;
     try {
