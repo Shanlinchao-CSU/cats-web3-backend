@@ -13,5 +13,7 @@ router.post('/mintCarbonCoin', Handler.mintCarbonCoin)
 router.post('/resetCarbonAllowance', Handler.resetCarbonAllowance)
 // 处理注册时进行发放碳币和碳额度请求的映射关系
 router.post('/register', Handler.register)
+//  测试接口
+// router.get('/test', Handler.test)
 
 module.exports = router

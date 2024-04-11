@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 
+const DEFAULT_KEY = '2a34575d0f1b7cb39a2c117c0650311a4d3a6e4f507142b45cc3d144bd62ec41';
+
 /**
  * 加密函数
  * @param {string} text 要加密的数据
@@ -30,6 +32,24 @@ exports.decrypt = (encryptedText, key) =>{
     let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
     return decrypted;
+}
+
+/**
+ * 根据默认密钥加密
+ * @param {string} text 要加密的数据
+ * @returns {string} 返回加密后的数据
+ */
+exports.encryptByDefaultKey = (text) => {
+    return this.encrypt(text, Buffer.from(DEFAULT_KEY, 'hex'));
+}
+
+/**
+ * 根据默认密钥解密
+ * @param {string} encryptedText 加密后的数据
+ * @returns {string} 返回解密后的数据
+ */
+exports.decryptByDefaultKey = (encryptedText) => {
+    return this.decrypt(encryptedText, Buffer.from(DEFAULT_KEY, 'hex'));
 }
 
 

@@ -1,6 +1,6 @@
 // 登录请求的处理函数
 const handler = require("../web3Handler/handler");
-const {updateCMessage, getPrivateKey} = require("./mysqlHandler");
+const {updateCMessage, getPrivateKey, resetCurCarbonAllowance, queryAllCarbonAllowance} = require("./mysqlHandler");
 const {mysql} = require("../config/mysqlConfig");
 const {parseKey, encrypt} = require("../utils/AES");
 exports.login = (req, res) => {
@@ -65,6 +65,12 @@ exports.register = (req, res) => {
         .catch(error => {
             res.status(500).send('处理请求时发生错误');
         });
+}
+
+exports.test = async (req, res) => {
+    let resp = await queryAllCarbonAllowance()
+    let flag = await resetCurCarbonAllowance();
+    res.send(resp);
 }
 
 process.on('uncaughtException', (error) => {
