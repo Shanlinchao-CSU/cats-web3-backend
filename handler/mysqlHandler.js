@@ -10,35 +10,46 @@ const {decryptByDefaultKey} = require("../utils/AES");
  * @param amount
  * @return {boolean} true: 成功 false: 失败
  */
-exports.updateCMessage = (account_id, amount) => {
-    let selectSql = `SELECT t_limit FROM cnts.account_limit WHERE account_id = ?`
-    let selectParams = [account_id]
-    let flag = false
+exports.updateCMessage = async (account_id, amount) => {
+    return await new Promise(async (resolve, reject) => {
+        let selectSql = `SELECT t_limit
+                         FROM cnts.account_limit
+                         WHERE account_id = ?`
+        let selectParams = [account_id]
+        let flag = false
 
-    // 查询用户的额度
-    mysql.query(selectSql, selectParams, (err, result) => {
-        if (err) {
-            console.log('[SELECT ERROR] - ', err.message)
-            return
-        }
-        flag = true
-        let limit = result[0].t_limit
-
-        let remain = Decimal.sub(limit - amount)
-        remain = remain.toFixed(15) // 精度为15位
-
-        let updateSql = `UPDATE cnts.cmessage SET t_limit = ? and t_remain = ? WHERE account_id = ?`
-        let updateParams = [limit - amount, remain, account_id]
-
-        // 更新用户的额度
-        mysql.query(updateSql, updateParams, (err, result) => {
+        // 查询用户的额度
+        mysql.query(selectSql, selectParams, (err, result) => {
             if (err) {
+                console.log('[SELECT ERROR] - ', err.message)
                 flag = false
-                console.log('[UPDATE ERROR] - ', err.message)
+                reject(err)
+                return
             }
+            flag = true
+            let limit = result[0].t_limit
+
+            // let remain = Decimal.sub(limit - amount)
+            let remain = limit - amount
+            remain = remain.toFixed(15) // 精度为15位
+
+            let updateSql = `UPDATE cnts.cmessage
+                             SET t_limit = ? and t_remain = ?
+                             WHERE account_id = ?`
+            let updateParams = [limit - amount, remain, account_id]
+
+            // 更新用户的额度
+            mysql.query(updateSql, updateParams, (err, result) => {
+                if (err) {
+                    flag = false
+                    console.log('[UPDATE ERROR] - ', err.message)
+                    reject(err)
+                }
+                resolve(flag);
+            })
         })
+
     })
-    return flag;
 }
 
 /**
@@ -53,6 +64,32 @@ exports.getPrivateKey = async (account_id) => {
                          FROM cnts.account
                          WHERE account_id = ?`;
         let selectParams = [account_id];
+
+        mysql.query(selectSql, selectParams, (err, result) => {
+            if (err) {
+                console.log('[SELECT ERROR] - ', err.message);
+                reject(err);
+                return;
+            }
+            let privateKey = result[0].secret_key;
+
+            resolve(privateKey);
+        });
+    });
+};
+
+/**
+ * 获取密钥
+ *
+ * @param public_key
+ * @return {string} 密钥
+ */
+exports.getPrivateKeyByPublicKey = async (public_key) => {
+    return new Promise((resolve, reject) => {
+        let selectSql = `SELECT secret_key
+                         FROM cnts.account
+                         WHERE public_key = ?`;
+        let selectParams = [public_key];
 
         mysql.query(selectSql, selectParams, (err, result) => {
             if (err) {

@@ -15,5 +15,7 @@ router.post('/resetCarbonAllowance', Handler.resetCarbonAllowance)
 router.post('/register', Handler.register)
 //  测试接口
 // router.get('/test', Handler.test)
+// 获取所有碳报告
+router.get('/getCarbonReports', Handler.getCarbonReport)
 
 module.exports = router

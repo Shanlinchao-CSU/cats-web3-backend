@@ -2,6 +2,8 @@ const { default: Web3 } = require('web3');
 
 const { abi: CarbonCoinABI } = require('../contracts/CarbonCoin.json');
 const { abi: CarbonCreditsABI } = require('../contracts/CarbonCredits.json');
+const {getPrivateKeyByPublicKey} = require("../handler/mysqlHandler");
+const {decrypt, parseKey, encryptByDefaultKey} = require("../utils/AES");
 
 const providerUrl = 'http://120.78.1.201:8545'; // 以太坊节点的地址
 const accounts = ["0xc387a9155b36850cded153182e37f86dbf6064e3", // 0 管理员
@@ -29,13 +31,13 @@ module.exports.submitCarbonReport = async function (report, amount, publicKey) {
     try {
         // 获取 Gas 价格
         // const gasPrice = await web3.eth.getGasPrice();
-        const gasPrice = 20000000000; // 20 Gwei
+        const gasPrice = 2000000000; // 2 Gwei
 
         // 构造交易对象
         const txObject = {
             from: accounts[1], // 数据审核员
             gasPrice: gasPrice,
-            gas: 210000, // 设置 Gas 限制
+            gas: 10000000, // 设置 Gas 限制
             password: "123456mm"
         };
         // 调用智能合约方法提交碳报告
@@ -113,3 +115,24 @@ module.exports.resetCarbonAllowance = async function (publicKey, amount) {
     return code;
 }
 
+/**
+ * 获取碳报告
+ *
+ * @return  碳报告
+ */
+module.exports.getCarbonReport = async function () {
+    // 调用智能合约事件
+    const events = await carbonCredits.getPastEvents('CarbonReportSubmitted', {
+        fromBlock: 7090,
+        toBlock: 'latest'
+    });
+    let result = []
+    for (const item of events) {
+        let address = item.returnValues.account
+        address = address.toLowerCase()
+        let private_key = await getPrivateKeyByPublicKey(encryptByDefaultKey(address))
+        let report = decrypt(item.returnValues.carbonReport[0], parseKey(private_key))
+        result.push({address: address, report: report})
+    }
+    return result;
+}
