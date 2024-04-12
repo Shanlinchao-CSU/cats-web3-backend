@@ -67,12 +67,12 @@ module.exports.mintCarbonCoin = async function (publicKey, amount) {
         const txObject = {
             from: accounts[0], // 系统
             gasPrice: gasPrice,
-            gas: 210000, // 设置 Gas 限制
+            gas: 10000000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法发送碳币
        await carbonCoin.methods
-       .transferFrom(accounts[0], publicKey, web3.utils.toWei(amount,"ether"))
+       .transfer(publicKey, web3.utils.toWei(amount,"ether"))
        .send(txObject);
 
     } catch (error) {
@@ -100,7 +100,7 @@ module.exports.resetCarbonAllowance = async function (publicKey, amount) {
         const txObject = {
             from: accounts[0], // 系统
             gasPrice: gasPrice,
-            gas: 210000, // 设置 Gas 限制
+            gas: 10000000, // 设置 Gas 限制
         };
 
         // 调用智能合约方法重置碳排放额度

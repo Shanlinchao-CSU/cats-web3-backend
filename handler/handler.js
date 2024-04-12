@@ -22,7 +22,6 @@ exports.submitCarbonReport = async (req, res) => {
 
     report = encrypt(report, parseKey(privateKey));
     // report = "2e2ee1611d1199ec51047d1902495d303ffbc13cd2d2a8ff442a3b969c2de84ce1d3c89e8482ac7b075b95b9bfa07832a8b30979792637d410f72523e6337b2ac8e2ae1c59f1658d8c9d2c3398b76a1d2421952f942f44468a885267aee09ed3b5783b5ae97c883053fef068c0683fd56d7942a1abf8d9155d1082e18ed22c7dd7fc6e68aebff192d5d5917d8b96b4af4fc80075cf60bf9adbb2a7bb6a8d4dc5843d2dddad7c2ec2701a4c93016d7fcdc919cb68d3710b70109fc7941f887fb9efafaedfb43fb0df11939b38bb171710049d4aceade9fafbe088242a4ec1d9e8fb9b96f0cbda14632d43f97bcb5d8240"
-    console.log('report:', report)
     handler.submitCarbonReport(report, amount, publicKey).then(async r => {
         let flag = await updateCMessage(account_id, amount);
         if (flag) {
