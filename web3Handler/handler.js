@@ -12,8 +12,8 @@ const accounts = ["0xc387a9155b36850cded153182e37f86dbf6064e3", // 0 管理员
 
 const web3 = new Web3(providerUrl);
 
-const carbonCoinContractAddress = '0x6D78638F149c584E44f5E58E7f76c74772aF6AE7'; // CarbonCoin 智能合约地址
-const carbonCreditsContractAddress = '0x46226E90D5fCffebDa2387c5aA7c228B535EF94F'; // CarbonCredits 智能合约地址
+const carbonCoinContractAddress = '0x4959E68Dbb1E3c629343F37a18ef7B63773d5f2a'; // CarbonCoin 智能合约地址
+const carbonCreditsContractAddress = '0xfB5741e85B123ee2D3187F215c3445cEC8aa6c3c'; // CarbonCredits 智能合约地址
 
 const carbonCoin = new web3.eth.Contract(CarbonCoinABI, carbonCoinContractAddress);
 const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContractAddress);
@@ -123,7 +123,7 @@ module.exports.resetCarbonAllowance = async function (publicKey, amount) {
 module.exports.getCarbonReport = async function () {
     // 调用智能合约事件
     const events = await carbonCredits.getPastEvents('CarbonReportSubmitted', {
-        fromBlock: 7090,
+        fromBlock: 0,
         toBlock: 'latest'
     });
     let result = []
