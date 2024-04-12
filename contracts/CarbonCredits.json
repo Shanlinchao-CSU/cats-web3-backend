@@ -17678,15 +17678,15 @@
     "version": "0.8.21+commit.d9974bed.Emscripten.clang"
   },
   "networks": {
-    "726": {
+    "826": {
       "events": {},
       "links": {},
-      "address": "0x46226E90D5fCffebDa2387c5aA7c228B535EF94F",
-      "transactionHash": "0x1c31432efa0c28212b0557940bb4483d99cf49df82bc899844292eafb42eac6f"
+      "address": "0xF60342Ec106e30dD0bA9eC50e28fCC39757B3dD1",
+      "transactionHash": "0xbcb10ff3f371c13b4d8e36a28ea25b18ef748c3f7db7996bc2d1844ca611773d"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-04-06T10:49:16.560Z",
+  "updatedAt": "2024-04-12T07:05:03.762Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
