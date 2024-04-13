@@ -6,14 +6,14 @@ const {getPrivateKeyByPublicKey} = require("../handler/mysqlHandler");
 const {decrypt, parseKey, encryptByDefaultKey} = require("../utils/AES");
 
 const providerUrl = 'http://120.78.1.201:8545'; // 以太坊节点的地址
-const accounts = ["0x90E672df02F2aed9A98a16324e6eE00344f6c7C3", // 0 系统
-    "0x46d9Be20C17CA09e09efC293f8e0BFc3B3efFb22", // 1 数据审核员
-    "0xd078d8bEADc71ae788f13F79F4CA6346DF2400CE"] // 2 第三方机构
+const accounts = ["0xa512dc579dad9e019c2953c6085e130e8633f7ca", // 0 系统
+    "0x35afb612b9f26bba267eb7310d20c3bc1b0a9548", // 1 数据审核员
+    "0x4d92bc92e8421b4079fbf1b1ef3cece011d16830"] // 2 第三方机构
 
 const web3 = new Web3(providerUrl);
 
-const carbonCoinContractAddress = "0xcEBc6C22b0488e88085555DdBeF44f66ed6fc29b"; // CarbonCoin 智能合约地址
-const carbonCreditsContractAddress = "0xF60342Ec106e30dD0bA9eC50e28fCC39757B3dD1"; // CarbonCredits 智能合约地址
+const carbonCoinContractAddress = "0xBeAa1C479D634372b80ba1F538B5a850e56d542E"; // CarbonCoin 智能合约地址
+const carbonCreditsContractAddress = "0x561067595417797Bf55D5e40C75eF0e4561bBF50"; // CarbonCredits 智能合约地址
 
 const carbonCoin = new web3.eth.Contract(CarbonCoinABI, carbonCoinContractAddress);
 const carbonCredits = new web3.eth.Contract(CarbonCreditsABI, carbonCreditsContractAddress);

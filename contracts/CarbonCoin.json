@@ -10004,15 +10004,15 @@
     "version": "0.8.21+commit.d9974bed.Emscripten.clang"
   },
   "networks": {
-    "826": {
+    "926": {
       "events": {},
       "links": {},
-      "address": "0xcEBc6C22b0488e88085555DdBeF44f66ed6fc29b",
-      "transactionHash": "0xc3ade4c6afbe6dba2d4d0080e079686a31ba4afeeaf0b412465c8bf0a6e4ef08"
+      "address": "0xBeAa1C479D634372b80ba1F538B5a850e56d542E",
+      "transactionHash": "0x593dfd68bd62efa8264103c3ac8467a160c37dea11ca8b6a958aac8b21445e2b"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-04-12T07:05:03.754Z",
+  "updatedAt": "2024-04-12T17:05:34.089Z",
   "networkType": "ethereum",
   "devdoc": {
     "errors": {
